@@ -1,0 +1,31 @@
+﻿Build started 7/10/2012 9:35:45 AM.
+     1>Project "C:\Users\b225404\Documents\dat2csv\dat2csv\dat2csv.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\dat2csv.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\b225404\documents\dat2csv\dat2csv\main.cpp(41): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\time.inl(112) : see declaration of 'localtime'
+     1>c:\users\b225404\documents\dat2csv\dat2csv\main.cpp(120): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\time.inl(112) : see declaration of 'localtime'
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\dat2csv.exe.embed.manifest.res" Debug\dat2csv_manifest.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\b225404\Documents\dat2csv\Debug\dat2csv.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Public\Documents\Measurement Computing\DAQ\C" cbw32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\dat2csv.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\b225404\Documents\dat2csv\Debug\dat2csv.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\b225404\Documents\dat2csv\Debug\dat2csv.lib" /MACHINE:X86 Debug\dat2csv.exe.embed.manifest.res
+         Debug\main.obj
+         LINK : C:\Users\b225404\Documents\dat2csv\Debug\dat2csv.exe not found or not built by the last incremental link; performing full link
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\dat2csv.exe.embed.manifest" /manifest Debug\dat2csv.exe.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         dat2csv.vcxproj -> C:\Users\b225404\Documents\dat2csv\Debug\dat2csv.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\dat2csv.unsuccessfulbuild".
+         Touching "Debug\dat2csv.lastbuildstate".
+     1>Done Building Project "C:\Users\b225404\Documents\dat2csv\dat2csv\dat2csv.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:14.16
