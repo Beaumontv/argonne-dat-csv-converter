@@ -4,14 +4,16 @@
 /*   to csv format.
 */
 
-#include <iostream>	// 
-#include <fstream>	// out
+#include <iostream>	// cout()
+#include <fstream>	// out()
 #include <time.h>	// time()
-#include "cbw.h"	// for MC Universal Lib
+#include "cbw.h"	// MC Universal Lib
 
 using std::cout;
 using std::endl;
 using std::ofstream;
+
+// TODO: Make the OUTFILE name automatic
 
 int main(int argc, char* argv[]) {
 	// Check usage or print help
@@ -31,12 +33,8 @@ int main(int argc, char* argv[]) {
 	long PreTrigCount, TotalCount, Rate;
 	long FirstPoint, NumPoints;
 	ofstream out;
-	char timestr[80];
-
-	// Get the time
-	time_t now = time(NULL);
-	strftime(timestr,79,"%Hh%Mm%Ss", localtime(&now));
-	printf("Started at %s\n", timestr);
+	// char timestr[80];
+	WORD *DataBuffer;
 
 	// Required for MC UL
 	ULStat = cbDeclareRevision(&RevLevel);
@@ -46,7 +44,7 @@ int main(int argc, char* argv[]) {
 	ULStat = cbFileGetInfo (FileName, &LowChan, &HighChan, &PreTrigCount, &TotalCount, &Rate, &Gain);
 
 	// Set the number of channels variable
-	int numChans = HighChan - LowChan + 1;
+	int NumChans = HighChan - LowChan + 1;
 
 	// Open filestream for writing fileinfo header
 	out.open(argv[2]);
@@ -70,15 +68,12 @@ int main(int argc, char* argv[]) {
 		out << endl; // newline to start printing data
 
 		// Size of chunk to process in number of data points
-		//		This MUST be a multiple of the number of channels
-		int factor = 500000;
-		NumPoints = factor*numChans;
+		NumPoints = TotalCount/NumChans; // MUST be a multiple of NumChans
 		// Size of DataBuffer MUST be 1 greater or equal to NumPoints (?)
-		WORD DataBuffer[500000*3]; 
-		// start reading data at the first point
+		DataBuffer = new WORD[NumPoints-1]; 
+		// required indices
 		FirstPoint = 0;
 		int k = 0;
-		int totrows = 0;
 
 		// Iterate through all data points.  Each iteration takes care of NumPoints
 		//		worth of data.  So, make TotalCount/NumPoints iterations.
@@ -88,35 +83,29 @@ int main(int argc, char* argv[]) {
 			k = 0;
 
 			// Buffer NumPoints worth of data
-			ULStat = cbFileRead (FileName, FirstPoint, &NumPoints, DataBuffer);
+			ULStat = cbFileRead(FileName, FirstPoint, &NumPoints, DataBuffer);
+
+			// Check for error before proceeding
+			if (ULStat != 0) {
+				printf("Error %d\n", ULStat);
+				return 0;
+			}
 
 			// Iterate through rows
-			while (k < NumPoints) {
-				// Insert the row number into the first column
-				out << totrows << ',';
-				// Iterate up for the next row
-				totrows++;
+			while (k < NumPoints-1) {
 				// Output one data point per channel
 				for(int j = LowChan; j <= HighChan; j++) { 
-					out << DataBuffer[k] << ',';	// Print channel data into column
+					if (j != HighChan) out << DataBuffer[k] << ',';	// Print channel data into column
+					else out << DataBuffer[k];
 					k++;							// Move to next data point
 				}
 				out << endl; // 
 			}
 
-			FirstPoint += NumPoints;	// Increment read starting point for next row
-			//out << endl;				// next row
-
-			// cout << "Processing Count: " << FirstPoint << endl;
-
+			FirstPoint += NumPoints;	// Increment starting point for next set
+			delete [] DataBuffer;
 		}
 	} out.close();
-
-
-	// Get the time
-	now = time(NULL);
-	strftime(timestr,79,"%Hh%Mm%Ss", localtime(&now));
-	printf("Finished at %s\n", timestr);
 
 	return 0;
 }
