@@ -1,4 +1,4 @@
-# Bryan Orr & Alex Dunn, 2012 APS, ANL
+# Bryan Orr & Alex Dunn, 2012 AES, APS, ANL
 # 	Iterates through current directory and calls
 #  	the dat2csv.exe converter then archives newly
 #	created files.
