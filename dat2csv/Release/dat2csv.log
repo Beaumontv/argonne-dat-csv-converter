@@ -1,10 +1,12 @@
-﻿Build started 7/11/2012 10:10:22 AM.
+﻿Build started 7/16/2012 12:00:35 PM.
      1>Project "C:\Users\b225404\Documents\dat2csv\dat2csv\dat2csv.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Release\dat2csv.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
+     1>main.cpp(43): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\include\stdio.h(234) : see declaration of 'fopen'
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\b225404\Documents\dat2csv\Release\dat2csv.exe" /INCREMENTAL:NO /NOLOGO cbw32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\dat2csv.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\b225404\Documents\dat2csv\Release\dat2csv.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\b225404\Documents\dat2csv\Release\dat2csv.lib" /MACHINE:X86 Release\main.obj
          Generating code
@@ -19,4 +21,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:07.38
+Time Elapsed 00:00:05.72

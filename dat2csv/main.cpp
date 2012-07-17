@@ -8,6 +8,8 @@
 #include <time.h>	// time()
 #include "cbw.h"	// MC Universal Lib
 
+void clock_tick(int &hour, int &mins, int &secs);
+
 // TODO: Make the OUTFILE name automatic
 
 int main(int argc, char* argv[]) {
@@ -40,6 +42,27 @@ int main(int argc, char* argv[]) {
 	// Open CSV and print data
 	writeFile = fopen(argv[2], "w");
 
+	// Convert FileName to time
+	char hours[3];
+	char mins[3];
+	char secs[3];
+	hours[0] = FileName[14];
+	hours[1] = FileName[15];
+	hours[2] = NULL;
+	mins[0] = FileName[17];
+	mins[1] = FileName[18];
+	mins[2] = NULL;
+	secs[0] = FileName[20];
+	secs[1] = FileName[21];
+	secs[2] = NULL;
+	int h = atoi(hours);
+	int m = atoi(mins);
+	int s = atoi(secs);
+
+	// Increment value
+	double increment = 1/(double)Rate;
+	double seccount = 0;
+
 	if(writeFile == NULL) {
 		fprintf(stderr, "Unable to open output file %s\n", argv[2]);
 		return 1;
@@ -66,6 +89,7 @@ int main(int argc, char* argv[]) {
 		// required indices
 		FirstPoint = 0;
 		int k = 0;
+		int checksec = 0;
 
 		// Iterate through all data points.  Each iteration takes care of NumPoints
 		//		worth of data.  So, make TotalCount/NumPoints iterations.
@@ -85,12 +109,20 @@ int main(int argc, char* argv[]) {
 
 			// Iterate through rows
 			while (k < NumPoints-1) {
+				// Print time and seconds for each row
+				fprintf(writeFile, "%02d:%02d:%02d,%f,", h, m, s, seccount);
 				// Output one data point per channel
 				for(int j = LowChan; j <= HighChan; j++) { 
 					if (j != HighChan) fprintf(writeFile, "%d,", DataBuffer[k]);	// Print channel data into column
 					else fprintf(writeFile, "%d\n", DataBuffer[k]);					// Don't print comma on last column
 					k++;
 				}
+					seccount = seccount + increment;								// Increment by 1/Rate for each row
+					checksec++;
+					if (checksec == Rate) {
+						clock_tick(h, m, s);
+						checksec = 0;
+					}
 			}
 
 			FirstPoint += NumPoints;	// Increment starting point for next set
@@ -100,4 +132,21 @@ int main(int argc, char* argv[]) {
 	delete [] DataBuffer;
 
 	return 0;
+}
+
+// Intelligence to handle time incrementation
+void clock_tick(int &hour, int &mins, int &secs) {
+	secs++;
+	if (secs == 60) {
+		mins++;
+		secs = 0;
+	}
+	if (mins == 60) {
+		hour++;
+		mins = 0;
+	}
+	// Go to the next day
+	if (hour == 25) {
+		hour = 0;
+	}
 }
