@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
 		fprintf(writeFile, "No. of Samples,%d\n", TotalCount);
 		fprintf(writeFile, "No. of Samples/Channel,%d\n", TotalCount/(HighChan+1));
 		fprintf(writeFile, "Collection Rate (Hz),%d\n", Rate);
-		fprintf(writeFile, "Gain,%d\n\n", Gain);
+		fprintf(writeFile, "Gain,%d\n", Gain);
 
 		// Print header with seconds and num channels
 		fprintf(writeFile, "Seconds,"); // Print Seconds header
